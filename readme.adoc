@@ -1,0 +1,7 @@
+= Pronote Notifier
+FuseTim <fusetim@gmx.com>
+
+[abstract]
+Create a simple script to notify Pronote events to a webhook
+
+WARNING: Work In Progress
