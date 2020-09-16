@@ -29,6 +29,12 @@ class TempStorage(object):
         self.notes = list(dict["notes"])
         self.info = list(dict["info"])
 
+    def __dict__(self):
+        return {"date": self.date, "lessons": self.lessons, "notes": self.notes, "info": self.info}
+
+def to_DB(date, lessons = list(), notes = list(), info = list()):
+    return TempStorage({"date": date, "lessons": lessons, "notes": notes, "info": info})
+
 def get_settings(path="./config/settings.toml"):
     return Settings(toml.load(path))
 
@@ -36,4 +42,5 @@ def get_db(path="./config/db.toml"):
     return TempStorage(toml.load(path))
 
 def save_db(db, path="./config/db.toml"):
-    return toml.dump(db, path)
+    with open(path, "w") as f:
+        return toml.dump(db.__dict__(), f)
