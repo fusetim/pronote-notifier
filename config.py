@@ -22,5 +22,18 @@ class Webhook(object):
         self.note_add = dict["note_add"]
         self.info_add = dict["info_add"]
 
+class TempStorage(object):
+    def __init__(self, dict):
+        self.date = dict["date"]
+        self.lessons = list(dict["lessons"])
+        self.notes = list(dict["notes"])
+        self.info = list(dict["info"])
+
 def get_settings(path="./config/settings.toml"):
     return Settings(toml.load(path))
+
+def get_db(path="./config/db.toml"):
+    return TempStorage(toml.load(path))
+
+def save_db(db, path="./config/db.toml"):
+    return toml.dump(db, path)
