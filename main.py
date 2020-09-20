@@ -34,11 +34,11 @@ def main():
             print("(known)")
         else:
             db.lessons.append(l.to_hash())
-            if notify:
+            if not notify and not l.has_status():
+                print("(new / ignored)")
+            else:
                 notify_lesson(settings.webhook, l)
                 print("(new)")
-            else:
-                print("(new / ignored)")
     print("Ended!")
 
     # Save DB

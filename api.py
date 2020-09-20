@@ -37,10 +37,7 @@ def get_timetable(session, from_, to_):
     return list(map(lambda x: Lesson(x), timetable))
 
 def get_daytimetable(session):
-    dfrom = datetime.today()
-    lessons = None
-    while lessons is None or len(lessons) == 0:
-        dfrom = dfrom + timedelta(days=1)
-        dto = dfrom + timedelta(days=1)
-        lessons = get_timetable(session, dfrom.strftime("%Y-%m-%d"), dto.strftime("%Y-%m-%d"))
+    dfrom = datetime.today().date()
+    dto = dfrom + timedelta(days=1)
+    lessons = get_timetable(session, dfrom.strftime("%Y-%m-%d"), dto.strftime("%Y-%m-%d"))
     return lessons

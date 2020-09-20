@@ -3,12 +3,11 @@ from enum import Enum, auto
 import re
 from hashlib import blake2b
 
-lesson_edit = re.compile('[a-z]+')
-lesson_cancel = re.compile('[a-z]+')
-lesson_detention = re.compile('[a-z]+')
-lesson_teacher_away = re.compile('[a-z]+')
-lesson_class_away = re.compile('[a-z]+')
-
+lesson_edit = re.compile('(.+)?cours(.+)?modifié(.+)?', re.I+re.U)
+lesson_cancel = re.compile('(.+)?cours(.+)?annulé(.+)?')
+lesson_detention = re.compile('none')
+lesson_teacher_away = re.compile('(.+)?prof(.+)?absent(.+)?', re.I+re.U)
+lesson_class_away = re.compile('(.+)?classe(.+)?absente(.+)?', re.I+re.U)
 
 class LessonStatus(Enum):
     Ok = auto()
@@ -61,7 +60,7 @@ class Lesson(object):
         return self.room is not None
 
     def has_status(self):
-        return self.status is not None
+        return self.status is not LessonStatus.Ok
     
     def has_teacher(self):
         return self.teacher is not None
@@ -70,7 +69,7 @@ class Lesson(object):
         return self.tfrom.astimezone().strftime("%d/%m/%Y %Hh%M")
 
     def format_to(self):
-        return self.tfrom.astimezone().strftime("%d/%m/%Y %Hh%M")
+        return self.tto.astimezone().strftime("%d/%m/%Y %Hh%M")
 
     def __str__(self):
         date = self.tfrom.astimezone().strftime("%Y-%m-%d")

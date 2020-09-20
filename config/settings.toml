@@ -1,15 +1,8 @@
-api_url = "http://192.168.1.203:21727"
+api_url = "http://<host>:<port>"
+webhook = "webhook url"
 
 [credentials]
 cas = ""
-pronote_url = ""
+pronote_url = "http://<host>/"
 username = ""
 password = ""
-
-[webhook]
-lesson_add = ""
-lesson_edit = ""
-lesson_cancel = ""
-lesson_away = ""
-note_add = ""
-info_add = ""
